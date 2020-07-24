@@ -33,12 +33,12 @@ node {
     }
     stage('Deploy To Tomcat'){
         sshagent(['app-server']) {
-            sh 'scp -o StrictHostKeyChecking=no target/*.war ec2-user@172.31.35.122:/opt/apache-tomcat-9.0.36/webapps'
+            sh 'scp -o StrictHostKeyChecking=no target/*.war root@172.31.47.199:/opt/apache-tomcat-9.0.37/webapps'
         }
     }
     stage('Smoke Test'){
         sleep 5
-        sh "curl 172.31.35.122:8080/petclinic"
+        sh "curl 172.31.47.199:8080/petclinic"
     }
 
 }
