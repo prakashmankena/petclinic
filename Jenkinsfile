@@ -34,6 +34,7 @@ node {
     stage('Deploy To Tomcat'){
         sshagent(['app-server']) {
             sh 'scp -o StrictHostKeyChecking=no target/*.war root@172.31.47.199:/opt/apache-tomcat-9.0.37/webapps'
+            
         }
     }
     stage('Smoke Test'){
