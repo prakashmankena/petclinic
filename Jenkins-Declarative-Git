@@ -7,6 +7,26 @@ pipeline{
         echo "Welcome to Jenkins Declrative Pipeline"
       }
     }
+    
+   stage("Git-Clone"){
+    steps{
+      git credentialsId: 'Git-Hub', url: 'https://github.com/prakashmankena/petclinic/'
+    }
+   }
+   
+   stage("Build"){
+    steps{
+      sh "mvn clean"
+      sh "mv target/*.war tartget/flex.war"
+    }
+   }
+   stage("Deploy"){
+    steps{
+      sshagent(['']) {
+          sh 'ssh -o StrictHostKeyChecking=no target/flex.war root@172.31.35.161:/opt/apache-tomcat-8.5.57webapps'
+      }
+    }
+   }
   }
 
 }
